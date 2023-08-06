@@ -1,12 +1,13 @@
 const express = require('express');
+require('dotenv').config()
 const app = express();
 const mongoose = require('mongoose');
 const router = require("./router/route");
 const cors = require('cors');
 const path = require('path')
+const PORT = process.env.PORT || 5000
 
 app.use(express.json());
-require('dotenv').config()
 app.use(cors())
 
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
@@ -22,6 +23,6 @@ app.get("/", (req, res) => {
 })
 app.use("/api", router)
 
-app.listen(process.env.PORT, (req, res) => {
+app.listen(PORT, (req, res) => {
     console.log("server listening on port");
 })
