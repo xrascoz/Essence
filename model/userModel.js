@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     password: { type: 'String' },
     phone: { type: 'String' },
     otp: { type: Number, default: 0 },
-    img: { type: 'String' },
+    isVerified: { type: Boolean, default: false },
+    img: { type: 'String', default: "" },
     appointments: [appointmentSchema]
 })
 

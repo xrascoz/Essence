@@ -57,4 +57,16 @@ module.exports.get_all_blog = async (req, res) => {
 }
 
 
+module.exports.update_blog = async (req, res) => {
+    let { id } = req.params
+    let blogDelete = await blogModel.findByIdAndDelete(id)
+    if (blogDelete) {
+
+        res.send({ success: "the blog has been deleted" })
+    } else {
+        res.send({ error: "failed to delete blog" })
+
+    }
+}
+
 
