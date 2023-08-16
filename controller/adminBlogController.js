@@ -22,22 +22,23 @@ module.exports.create_blog = async (req, res) => {
     upload(req, res, async (error) => {
         if (error) {
             console.log(error);
-            return res.status(400).json({ error: 'حدث خطأ في تحميل الملف' });
+            return res.status(400).json({ error: 'An error occurred while uploading the file' });
         }
         if (!req.file) {
-            return res.status(400).json({ error: 'يجب تحميل ملف الصورة' });
+            return res.status(400).json({ error: 'You must upload the image file' });
         }
         const { cover, content, summary, title } = req.body
         try {
             console.log(req.file.path);
             await blogModel.create({ cover: req.file.path, content, summary, title })
-            res.json({ message: "تم إنشاء المدونة بنجاح" });
+            res.json({ success: "The blog was created successfully" });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'حدث خطأ في إنشاء البيانات' });
+            res.status(500).json({ error: 'An error occurred while creating the data' });
         }
     })
 }
+
 
 
 module.exports.blog_id = async (req, res) => {

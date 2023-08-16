@@ -1,10 +1,8 @@
 const appointmentModel = require("../model/appointmentModel")
 
-
 module.exports.appointment = async (req, res) => {
     console.log(req.body)
     const { dateHour, dateHourEnd, dateDay, category, available, booked } = req.body;
-
     const newAppointment = {
         dateHour,
         dateDay,
@@ -13,17 +11,13 @@ module.exports.appointment = async (req, res) => {
         available,
         booked
     };
-
     await appointmentModel.create(newAppointment)
     if (appointmentModel) {
-
         return res.send({ success: "the Date has been created" });
     } else {
         return res.send({ error: "failed to create date" });
-
     }
 }
-
 
 
 module.exports.appointment_unavailable = async (req, res) => {
