@@ -64,30 +64,30 @@ module.exports.add_new_coupon = async (req, res) => {
     }
 }
 
+
 module.exports.update_coupon = async (req, res) => {
     try {
-        const { id, idAvailableNumber } = req.params;
-        const { availableNumber } = req.body;
+        const { couponCode } = req.body;
+        console.log(couponCode);
 
-        const user = await couponModel.findById(id);
+        const user = await couponModel.findOne({ "availableAppointment.couponCode": couponCode });
 
         if (!user) {
             return res.send({ "error": "Coupon not found" });
         }
 
-        const userAvailableNumber = user.availableAppointment.findIndex(
-            (item) => item._id.toString() === idAvailableNumber
-        );
+        const updateCode = user.availableAppointment.find(code => code.couponCode === couponCode);
 
-        if (userAvailableNumber === -1) {
-            return res.send({ "error": "Available appointment not found" });
+        if (!updateCode) {
+            return res.send({ "error": "Coupon code not found" });
         }
 
-        user.availableAppointment[userAvailableNumber].availableNumber = availableNumber;
+        updateCode.availableNumber -= 1; 
+
         await user.save();
 
-        res.send({ "success": "Successfully updated available number" });
+        res.send({ "success": "Successfully updated coupon" });
     } catch (error) {
-        res.send({ "error": "Failed to update available number" });
+        res.send({ "error": "Failed to update coupon" });
     }
-}
+};

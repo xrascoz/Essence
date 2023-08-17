@@ -1026,53 +1026,82 @@ p {
 }
 
 module.exports.coupon_user = async (req, res) => {
+    try {
+        let { id } = req.params;
+        let user = await userModel.findById(id);
 
+        const { dateHour, dateHourEnd, dateDay, category, available, booked, couponCode } = req.body;
+        console.log(category);
+        console.log(couponCode);
 
-    let { id } = req.params;
-    let user = await userModel.findById(id);
- 
-    const  { dateHour, dateHourEnd, dateDay, category, available, booked, couponCode } = req.body;
-    console.log(category)
-    console.log(couponCode)
-    const  newAppointment = {
-        dateHour,
-        dateHourEnd,
-        dateDay,
-        category,
-        available,
-        booked
-    };
+        const newAppointment = {
+            dateHour,
+            dateHourEnd,
+            dateDay,
+            category,
+            available,
+            booked
+        };
 
-    let companyCoupon = await couponModel.find()
+        let companyCoupon = await couponModel.find();
 
-    const foundCoupon = companyCoupon.some((coupon) => {
-        return coupon.availableAppointment.some((appointment) => {
-            // && appointment.category.toString() == category.toString()
-            if (appointment && appointment.couponCode == couponCode && appointment.availableNumber > 0  ) {
-                return  true;
-            }
-            return false;
+        const foundCoupon = companyCoupon.some((coupon) => {
+            return coupon.availableAppointment.some((appointment) => {
+                if (appointment && appointment.couponCode == couponCode && appointment.availableNumber > 0) {
+                    return true;
+                }
+                return false;
+            });
         });
-    });
-    
 
-    console.log(foundCoupon)
-    if (foundCoupon) {
-    
-        if (user) {
-             user.appointments.push(newAppointment);
-             user.save();
+        // const resultCoupon = user.codeCoupon.some((code) => {
+        //     if (code != couponCode) {
+        //         return true;
+        //     }
+        //     return false;
+        // });
+        // const resultCoupon = user.codeCoupon.some((code) => {
+        //     if (code != couponCode) {
+        //         return true;
+        //     }
+        //     return false;
+        // });
 
-            res.send({ "success": "Coupon code is valid" });
-        } 
-     
-    } else {
-        res.send({ "error": "Coupon code is not valid" });
+        // const isCouponCodeNotInArray = !user.codeCoupon.some((codeObj) => codeObj.code === couponCode);
+
+        // if (isCouponCodeNotInArray) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        // console.log(isCouponCodeNotInArray)
+
+        
+
+        const isCouponCodeUsed = !user.codeCoupon.includes(couponCode);
+
+
+
+        if (foundCoupon && isCouponCodeUsed) {
+
+            if (user) {
+                user.appointments.push(newAppointment);
+          
+                user.codeCoupon.push(couponCode);
+                user.save();
+
+                res.send({ "success": "Coupon code is valid" });
+            }
+
+        } else {
+            res.send({ "error": "Coupon code is not valid" });
+        }
+    } catch (error) {
+        res.send({ "error": "An error occurred" });
     }
+};
 
-   
-}
- 
+
 
 module.exports.appointments_Unavailable = async (req, res) => {
     const { id, appointmentId } = req.params;
@@ -1423,4 +1452,15 @@ module.exports.get_all_user = async (req, res) => {
 };
 
 
+
+
+
+module.exports.update_user = async (req, res) => {
+    try {
+        await userModel.updateMany({ code: '' });
+        res.send({ success: 'users was update' });
+    } catch (error) {
+        res.send({ error: "users was't update" });
+    }
+};
 

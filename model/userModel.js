@@ -9,6 +9,7 @@ const appointmentSchema = new mongoose.Schema({
     booked: { type: Boolean, default: false }
 });
 
+
 const userSchema = new mongoose.Schema({
     fullName: { type: 'String' },
     email: { type: 'String' },
@@ -19,6 +20,7 @@ const userSchema = new mongoose.Schema({
     img: { type: 'String', default: "" },
     freeAppointment: { type: Boolean, default: true },
     couponAppointment: { type: Boolean, default: true },
+    codeCoupon: [{ type: String, default: "" }],
     appointments: [appointmentSchema]
 })
 
