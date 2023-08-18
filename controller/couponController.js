@@ -68,8 +68,6 @@ module.exports.add_new_coupon = async (req, res) => {
 module.exports.update_coupon = async (req, res) => {
     try {
         const { couponCode } = req.body;
-        console.log(couponCode);
-
         const user = await couponModel.findOne({ "availableAppointment.couponCode": couponCode });
 
         if (!user) {

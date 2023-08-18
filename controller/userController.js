@@ -1047,40 +1047,14 @@ module.exports.coupon_user = async (req, res) => {
 
         const foundCoupon = companyCoupon.some((coupon) => {
             return coupon.availableAppointment.some((appointment) => {
-                if (appointment && appointment.couponCode == couponCode && appointment.availableNumber > 0) {
+                if (appointment && appointment.couponCode == couponCode && appointment.availableNumber > 0 && appointment.category.toLowerCase() == category.toLowerCase()) {
                     return true;
                 }
                 return false;
             });
         });
 
-        // const resultCoupon = user.codeCoupon.some((code) => {
-        //     if (code != couponCode) {
-        //         return true;
-        //     }
-        //     return false;
-        // });
-        // const resultCoupon = user.codeCoupon.some((code) => {
-        //     if (code != couponCode) {
-        //         return true;
-        //     }
-        //     return false;
-        // });
-
-        // const isCouponCodeNotInArray = !user.codeCoupon.some((codeObj) => codeObj.code === couponCode);
-
-        // if (isCouponCodeNotInArray) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-        // console.log(isCouponCodeNotInArray)
-
-        
-
         const isCouponCodeUsed = !user.codeCoupon.includes(couponCode);
-
-
 
         if (foundCoupon && isCouponCodeUsed) {
 
