@@ -51,6 +51,7 @@ router.post("/user/update-user", update_user)
 router.post("/appointment", appointment)
 router.put("/appointment/:id", appointment_unavailable)
 router.get("/appointment", appointment_All)
+
 router.delete("/appointment/:id", appointment_delete)
 
 // contact
