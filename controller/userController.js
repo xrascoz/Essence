@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 require('dotenv').config()
-const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const express = require('express')
 const app = express()
@@ -1386,29 +1386,29 @@ p {
 // };
 
 
-module.exports.send_sms_message = async (req, res) => {
-    let { id } = req.params;
-    let { message } = req.body;
-    console.log(message);
-    let user = await userModel.findById(id);
-    if (user) {
-        const phoneUser = user.phone;
-        client.messages
-            .create({
-                body: message,
-                from: '+14708354170',
-                to: phoneUser
-            })
-            .then((message) => {
-                res.send({ "success": "message success" });
-            })
-            .catch((error) => {
-                console.error('An error occurred while sending the message:', error);
-                res.status(400).send({ "error": "An error occurred while sending the message." });
-            });
+// module.exports.send_sms_message = async (req, res) => {
+//     let { id } = req.params;
+//     let { message } = req.body;
+//     console.log(message);
+//     let user = await userModel.findById(id);
+//     if (user) {
+//         const phoneUser = user.phone;
+//         client.messages
+//             .create({
+//                 body: message,
+//                 from: '+14708354170',
+//                 to: phoneUser
+//             })
+//             .then((message) => {
+//                 res.send({ "success": "message success" });
+//             })
+//             .catch((error) => {
+//                 console.error('An error occurred while sending the message:', error);
+//                 res.status(400).send({ "error": "An error occurred while sending the message." });
+//             });
 
-    }
-};
+//     }
+// };
 
 
 module.exports.get_user = async (req, res) => {
