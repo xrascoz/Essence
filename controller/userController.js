@@ -1,9 +1,19 @@
 const userModel = require("../model/userModel")
 const couponModel = require("../model/couponModel")
+const appointmentModel = require("../model/appointmentModel")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 require('dotenv').config()
+const paypal = require("paypal-rest-sdk")
+
+
+
+paypal.configure({
+    'mod': 'sandbox',
+    'client_id': process.env.CLIENT_ID,
+    'client_secret': process.env.CLIENT_SECRET
+});
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const express = require('express')
@@ -1060,7 +1070,7 @@ module.exports.coupon_user = async (req, res) => {
 
             if (user) {
                 user.appointments.push(newAppointment);
-          
+
                 user.codeCoupon.push(couponCode);
                 user.save();
 
@@ -1425,10 +1435,6 @@ module.exports.get_all_user = async (req, res) => {
     res.send(users)
 };
 
-
-
-
-
 module.exports.update_user = async (req, res) => {
     try {
         await userModel.updateMany({ code: '' });
@@ -1437,4 +1443,63 @@ module.exports.update_user = async (req, res) => {
         res.send({ error: "users was't update" });
     }
 };
+
+
+
+
+// payment paypal
+
+
+module.exports.pay = async (req, res) => {
+    let { idUser } = req.params
+
+    let { id, price } = req.body
+    let AppointmentAddToUser = await appointmentModel.findById(id)
+    let  { dateHour, dateHourEnd, dateDay, category , _id } =  AppointmentAddToUser
+
+    const create_payment_json = {
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": `${process.env.BASE_URL_API}/success-pay/${idUser}/${encodeURIComponent(_id)}/${encodeURIComponent(dateHour)}/${encodeURIComponent(dateHourEnd)}/${encodeURIComponent(dateDay)}/${encodeURIComponent(category)}`,
+            "cancel_url": `${process.env.BASE_URL_API}/api/user/pay-cancel`
+        },
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "Rasco",
+                    "sku": "001",
+                    "price": price,
+                    "currency": "CAD",
+                    "quantity": 1
+                }]
+            },
+            "amount": {
+                "currency": "CAD",
+                "total": price
+            },
+            "description": "Rasco Order"
+        }]
+    };
+    paypal.payment.create(create_payment_json, async (error, payment) => {
+        if (error) {
+            throw error;
+        } else {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === "approval_url") {
+                    let approvalUrl = payment.links[i].href;
+                    return res.json({ approvalUrl });
+                }
+            }
+        }
+    });
+}
+
+
+
+
+
+
 

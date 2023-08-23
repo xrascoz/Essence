@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const { create_blog, blog_id, get_blog, get_all_blog, update_blog } = require("../controller/adminBlogController")
 const { register_admin, register_submit_admin, register_resend_otp_admin, login_admin, send_otp_admin, submit_otp_admin, update_data_admin, get_admin } = require("../controller/adminController")
-const { register_user, register_submit, register_resend_otp, login_user, send_otp_user, submit_otp_user, appointment_user, update_data_user, send_email_message, get_user, get_all_user , appointments_Unavailable , free_appointment_user , coupon_user  , update_user} = require("../controller/userController")
+const { register_user, register_submit, register_resend_otp, login_user, send_otp_user, submit_otp_user, appointment_user, update_data_user, send_email_message, get_user, get_all_user , appointments_Unavailable , free_appointment_user , coupon_user  , update_user , pay } = require("../controller/userController")
 const { appointment, appointment_unavailable, appointment_All , appointment_delete } = require("../controller/appointmentController")
 const { post_contact, get_contact , delete_contact } = require("../controller/contactController")
 const { add_new_company , add_new_coupon , update_coupon  , company} = require("../controller/couponController")
@@ -47,6 +47,9 @@ router.get("/user", get_all_user)
 router.put("/user/appointments/:id/:appointmentId", appointments_Unavailable)
 router.post("/user/update-user", update_user)
 
+router.post("/user/pay/:idUser", pay)
+
+
 //appointment
 router.post("/appointment", appointment)
 router.put("/appointment/:id", appointment_unavailable)
@@ -55,7 +58,7 @@ router.get("/appointment", appointment_All)
 router.delete("/appointment/:id", appointment_delete)
 
 // contact
-router.post("/contact", post_contact)
+router.post("/contact", post_contact)  
 router.get("/contact", get_contact)
 router.delete("/contact/:id", delete_contact)
 
