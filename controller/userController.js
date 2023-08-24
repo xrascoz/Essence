@@ -737,7 +737,7 @@ module.exports.appointment_user = async (req, res) => {
                 <p class="p-message margin">
                 Thanks for  sign uo for Cyber Translate. Use the following link to verify your email:
                 </p>
-                <a class="verify-button margin" href="https://temp-mail.org/" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+                <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09" target="_blank" rel="noopener noreferrer">Link Zoom</a>
                 <p class="p-message margin">
                   this link apple in your time from ${dateHour} to ${dateHourEnd} in ${dateDay}
                 </p>
@@ -1049,7 +1049,7 @@ p {
 
             </p>
 
-            <a class="verify-button margin" href="" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+            <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09v" target="_blank" rel="noopener noreferrer">Link Zoom</a>
         </div>
 
     </div>
@@ -1390,7 +1390,7 @@ p {
             <p class="p-message margin">${message}
             </p>
 
-            <a class="verify-button margin" href="${link}" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+            <a class="verify-button margin" href="${link ? link : "https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09"} target="_blank" rel="noopener noreferrer">Link Zoom</a>
         </div>
 
     </div>
