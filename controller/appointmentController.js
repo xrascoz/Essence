@@ -23,16 +23,18 @@ module.exports.appointment = async (req, res) => {
 module.exports.appointment_unavailable = async (req, res) => {
     let { id } = req.params
     const { booked } = req.body;
-  
+
     await appointmentModel.findByIdAndUpdate(id, { booked: booked })
-    console.log("susses");
+
+    res.send({ "success": "success" })
+
 }
 
 module.exports.appointment_delete = async (req, res) => {
     let { id } = req.params
 
     await appointmentModel.findByIdAndDelete(id)
-    
+
     if (appointmentModel) {
         return res.send({ success: "the Date has been Deleted" });
     } else {
