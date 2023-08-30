@@ -6,12 +6,17 @@ const router = require("./router/route");
 const cors = require('cors');
 const path = require('path')
 const PORT = process.env.PORT || 5000
-
+const cloudinary = require("cloudinary").v2
 const paypal = require("paypal-rest-sdk")
 
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+});
 
-
+ 
 paypal.configure({
     'mod': 'sandbox', // sandbox or live
     'client_id': process.env.CLIENT_ID,

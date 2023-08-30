@@ -3,23 +3,27 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 require('dotenv').config()
-
 const express = require('express')
 const app = express()
 const path = require('path')
 app.use(express.static("uploads"))
 
-const multer = require('multer')
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/userProfile")
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require("cloudinary").v2;
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'userProfile', 
+        format: async (req, file) => 'jpg' 
     }
 });
+const upload = multer({ storage: storage }).single("image");
 
-const upload = multer({ storage: storage }).single("image")
+
+
 
 module.exports.register_admin = async (req, res) => {
     let { fullName, email, password, phone } = req.body;

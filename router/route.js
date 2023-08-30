@@ -1,7 +1,7 @@
 
 const express = require('express')
 const router = express.Router()
-const { create_blog, blog_id, get_blog, get_all_blog, update_blog } = require("../controller/adminBlogController")
+const { create_blog, blog_id, get_blog, get_all_blog, update_blog , delete_blog } = require("../controller/adminBlogController")
 const { register_admin, register_submit_admin, register_resend_otp_admin, login_admin, send_otp_admin, submit_otp_admin, update_data_admin, get_admin } = require("../controller/adminController")
 const { register_user, register_submit, register_resend_otp, login_user, send_otp_user, submit_otp_user, appointment_user, update_data_user, send_email_message, get_user, get_all_user , appointments_Unavailable , free_appointment_user , coupon_user  , update_user , pay , appointment_duplicate } = require("../controller/userController")
 const { appointment, appointment_unavailable, appointment_All , appointment_delete } = require("../controller/appointmentController")
@@ -13,7 +13,8 @@ router.post("/blog", create_blog)
 router.get("/blog-home", get_blog)
 router.get("/blog", get_all_blog)
 router.get("/blog/:id", blog_id)
-router.delete("/blog/:id", update_blog)
+router.delete("/blog/:id", delete_blog)
+router.put("/blog/:id", update_blog)
 
 //admin
 router.post("/register-admin", register_admin)
