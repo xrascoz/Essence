@@ -3,10 +3,12 @@ const express = require('express')
 const router = express.Router()
 const { create_blog, blog_id, get_blog, get_all_blog, update_blog , delete_blog } = require("../controller/adminBlogController")
 const { register_admin, register_submit_admin, register_resend_otp_admin, login_admin, send_otp_admin, submit_otp_admin, update_data_admin, get_admin } = require("../controller/adminController")
-const { register_user, register_submit, register_resend_otp, login_user, send_otp_user, submit_otp_user, appointment_user, update_data_user, send_email_message, get_user, get_all_user , appointments_Unavailable , free_appointment_user , coupon_user  , update_user , pay , appointment_duplicate } = require("../controller/userController")
+const { register_user, register_submit, register_resend_otp, login_user, send_otp_user, submit_otp_user, appointment_user, update_data_user, send_email_message, get_user, get_all_user , appointments_Unavailable , free_appointment_user , coupon_user  , update_user , pay , appointment_duplicate , send_sms_message } = require("../controller/userController")
 const { appointment, appointment_unavailable, appointment_All , appointment_delete } = require("../controller/appointmentController")
 const { post_contact, get_contact , delete_contact } = require("../controller/contactController")
-const { add_new_company , add_new_coupon , update_coupon  , company} = require("../controller/couponController")
+const { add_new_company, add_new_coupon, update_coupon, company } = require("../controller/couponController")
+const { create_project, project_id, get_project, get_all_project, update_project , delete_project } = require("../controller/adminProjectController")
+
 
 //blog
 router.post("/blog", create_blog)
@@ -15,6 +17,14 @@ router.get("/blog", get_all_blog)
 router.get("/blog/:id", blog_id)
 router.delete("/blog/:id", delete_blog)
 router.put("/blog/:id", update_blog)
+
+//project
+router.post("/project", create_project)
+router.get("/project-home", get_project)
+router.get("/project", get_all_project)
+router.get("/project/:id", project_id)
+router.delete("/project/:id", delete_project)
+router.put("/project/:id", update_project)
 
 //admin
 router.post("/register-admin", register_admin)
@@ -43,12 +53,11 @@ router.post("/appointment-duplicate/:id", appointment_duplicate)
 router.post("/free-appointment-user/:id", free_appointment_user)
 router.post("/coupon-user/:id",coupon_user)
 router.post("/send-email-message/:id", send_email_message)
-// router.post("/sms/:id", send_sms_message)
+router.post("/sms/:id", send_sms_message)
 router.get("/user/:id", get_user)
 router.get("/user", get_all_user)
 router.put("/user/appointments/:id/:appointmentId", appointments_Unavailable)
 router.post("/user/update-user", update_user)
-
 router.post("/user/pay/:idUser", pay)
 
 

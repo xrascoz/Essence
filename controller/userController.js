@@ -10,11 +10,12 @@ const paypal = require("paypal-rest-sdk")
 
 
 paypal.configure({
-    'mod': 'sandbox',
+    'mode': 'live',
     'client_id': process.env.CLIENT_ID,
     'client_secret': process.env.CLIENT_SECRET
 });
-// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const express = require('express')
 const app = express()
@@ -28,8 +29,8 @@ const cloudinary = require("cloudinary").v2;
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'article', 
-        format: async (req, file) => 'jpg' 
+        folder: 'article',
+        format: async (req, file) => 'jpg'
     }
 });
 const upload = multer({ storage: storage }).single("image")
@@ -780,10 +781,10 @@ module.exports.appointment_duplicate = async (req, res) => {
     let { id } = req.params
     let user = await userModel.findById(id)
 
-    const {  dateHour, dateHourEnd, dateDay, category } = req.body;
+    const { dateHour, dateHourEnd, dateDay, category } = req.body;
     const duplicateIndex = user.appointments.findIndex((appointment) => {
         return (
-            appointment.dateHour === dateHour && 
+            appointment.dateHour === dateHour &&
             appointment.dateHourEnd === dateHourEnd &&
             appointment.dateDay === dateDay &&
             appointment.category === category
@@ -792,7 +793,7 @@ module.exports.appointment_duplicate = async (req, res) => {
     if (duplicateIndex !== -1) {
         user.appointments.splice(duplicateIndex, 1);
         await user.save();
-    }  
+    }
 
 }
 
@@ -1415,49 +1416,25 @@ p {
 };
 
 
-// module.exports.send_sms_message = async (req, res) => {
-//     let { id } = req.params;
-//     let { message } = req.body;
-//     console.log(message)
-//     let user = await userModel.findById(id)
-//     if (user) {
-//         const phoneUser = user.phone
-//         console.log(phoneUser)
-//         client.messages
-//             .create({
-//                 body: message,
-//                 from: '+14708354170',
-//                 to: phoneUser
-//             })
-//             .then(res => res.send({ "success": "message success" })
-//             )
-//     }
-// };
-
-
-// module.exports.send_sms_message = async (req, res) => {
-//     let { id } = req.params;
-//     let { message } = req.body;
-//     console.log(message);
-//     let user = await userModel.findById(id);
-//     if (user) {
-//         const phoneUser = user.phone;
-//         client.messages
-//             .create({
-//                 body: message,
-//                 from: '+14708354170',
-//                 to: phoneUser
-//             })
-//             .then((message) => {
-//                 res.send({ "success": "message success" });
-//             })
-//             .catch((error) => {
-//                 console.error('An error occurred while sending the message:', error);
-//                 res.status(400).send({ "error": "An error occurred while sending the message." });
-//             });
-
-//     }
-// };
+module.exports.send_sms_message = async (req, res) => {
+    let { id } = req.params;
+    console.log(id)
+    let { message } = req.body;
+    console.log(message)
+    let user = await userModel.findById(id)
+    if (user) {
+        const phoneUser = user.phone
+        console.log(phoneUser)
+        client.messages
+            .create({
+                body: message,
+                from: '+14708354170',
+                to: `+${phoneUser}`
+            })
+            .then(res.send({ "success": "message success" })
+            )
+    }
+};
 
 
 module.exports.get_user = async (req, res) => {
@@ -1496,11 +1473,14 @@ module.exports.pay = async (req, res) => {
     let AppointmentAddToUser = await appointmentModel.findById(id)
     let { dateHour, dateHourEnd, dateDay, category, _id } = AppointmentAddToUser
 
+
     const create_payment_json = {
+
         "intent": "sale",
         "payer": {
             "payment_method": "paypal"
         },
+
         "redirect_urls": {
             "return_url": `${process.env.BASE_URL_API}/success-pay/${idUser}/${encodeURIComponent(_id)}/${encodeURIComponent(dateHour)}/${encodeURIComponent(dateHourEnd)}/${encodeURIComponent(dateDay)}/${encodeURIComponent(category)}`,
             "cancel_url": `${process.env.BASE_URL_API}`
@@ -1521,7 +1501,10 @@ module.exports.pay = async (req, res) => {
             },
             "description": "Rasco Order"
         }]
+
     };
+
+
     paypal.payment.create(create_payment_json, async (error, payment) => {
         if (error) {
             throw error;
@@ -1535,7 +1518,6 @@ module.exports.pay = async (req, res) => {
         }
     });
 }
-
 
 
 
