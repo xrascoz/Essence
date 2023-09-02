@@ -36,7 +36,7 @@ mongoose.connect(`mongodb+srv://${process.env.API_USERNAME}:${process.env.API_PA
 })
 
 app.get("/", (req, res) => {
-    res.send("Rasco")
+    res.send("Rasco New")
 })
 app.use("/api", router)
 
