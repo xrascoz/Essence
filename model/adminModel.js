@@ -7,7 +7,8 @@ const adminSchema = new mongoose.Schema({
     phone: { type: 'String' },
     otp: { type: Number, default: 0 },
     isVerified: { type: Boolean, default: false },
-    img: { type: 'String' },
+    img: { type: 'String', default: "" },
+   
 
 })
 

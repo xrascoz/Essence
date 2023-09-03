@@ -1,7 +1,6 @@
 const appointmentModel = require("../model/appointmentModel")
 
 module.exports.appointment = async (req, res) => {
-    console.log(req.body)
     const { dateHour, dateHourEnd, dateDay, category, available, booked } = req.body;
     const newAppointment = {
         dateHour,

@@ -31,7 +31,6 @@ module.exports.create_project = async (req, res) => {
         }
         const { content, summary, title , youtubeLink } = req.body;
         try {
-            console.log(req.file.path);
             await projectModel.create({ cover: req.file.path, content, summary, title , youtubeLink });
             res.json({ success: "The project was created successfully" });
         } catch (error) {

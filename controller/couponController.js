@@ -3,7 +3,6 @@ const couponModel = require("../model/couponModel")
 module.exports.add_new_company = async (req, res) => {
     try {
         let { nameCompany, category, availableNumber } = req.body
-        console.log(nameCompany)
 
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         let result = '';
@@ -15,7 +14,6 @@ module.exports.add_new_company = async (req, res) => {
         const couponCode = result;
 
         const newAppointment = { category, availableNumber, couponCode };
-        console.log(newAppointment)
         await couponModel.create({ nameCompany, availableAppointment: [newAppointment] });
 
         res.send({ "success": "successfully added new company coupon" });
@@ -37,7 +35,6 @@ module.exports.company = async (req, res) => {
 module.exports.add_new_coupon = async (req, res) => {
 
     let { id } = req.params
-    console.log(id)
     let user = await couponModel.findById(id)
     let { category, availableNumber } = req.body
 
@@ -52,7 +49,6 @@ module.exports.add_new_coupon = async (req, res) => {
             }
             const couponCode = result;
 
-            console.log(user.availableAppointment);
             user.availableAppointment.push({ category, availableNumber, couponCode })
             user.save()
             res.send({ "success": "successfully added new coupon" });

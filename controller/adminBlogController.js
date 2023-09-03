@@ -31,7 +31,6 @@ module.exports.create_blog = async (req, res) => {
         }
         const { content, summary, title } = req.body;
         try {
-            console.log(req.file.path);
             await blogModel.create({ cover: req.file.path, content, summary, title });
             res.json({ success: "The blog was created successfully" });
         } catch (error) {
@@ -78,7 +77,6 @@ module.exports.update_blog = async (req, res) => {
             dataBlog = { summary, title, content }
         }
         try {
-            // console.log(req.file.path);
             await blogModel.findByIdAndUpdate(id, dataBlog)
             res.send({ success: "the blog has been Update" })
         } catch (error) {
