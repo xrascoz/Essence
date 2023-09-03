@@ -23,6 +23,18 @@ paypal.configure({
     'client_secret': process.env.CLIENT_SECRET
 });
 
+function checkOrigin(req, res, next) {
+    const allowedOrigins = ['https://essenceob.com'];
+    const requestOrigin = req.get('Referer');
+    if (allowedOrigins.includes(requestOrigin)) {
+        return next(); 
+    }
+    return res.status(403).json({ message: 'Access denied.' });
+}
+
+
+app.use(checkOrigin);
+
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
