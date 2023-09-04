@@ -62,7 +62,7 @@ module.exports.register_user = async (req, res) => {
             let info = {
                 from: process.env.EMAIL_ADMIN,
                 to: email,
-                subject: "Thanks for sign uo for Essence of Being. Use this following code to verify your email",
+                subject: "Thanks for sign up for Essence of Being. Use this following code to verify your email",
                 html: `
 
             <!DOCTYPE html>
@@ -285,7 +285,7 @@ color: #0084ff !important;
             
                         <h1 class="margin" >Hello, ${fullName} </h1>
                         <p class="p-message margin">
-                        Thanks for sign uo for <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b>. Use this following code to verify your email:
+                        Thanks for sign up for <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b>. Use this following code to verify your email:
                         </p>
         
                         <a class="verify-button margin" target="_blank" rel="noopener noreferrer">${otpGenerate.toString()}</a>
@@ -359,7 +359,7 @@ module.exports.register_resend_otp = async (req, res) => {
             let info = {
                 from: process.env.EMAIL_ADMIN,
                 to: email,
-                subject: "Thanks for sign uo for Essence of Being. Use this following code to verify your email",
+                subject: "Use this following code to verify your email in https://essenceob.com website",
                 html: `
 
             <!DOCTYPE html>
@@ -582,7 +582,7 @@ color: #0084ff !important;
             
                         <h1 class="margin" >Hello, ${fullName} </h1>
                         <p class="p-message margin">
-                        Thanks for sign uo for <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b>. Use this following code to verify your email:
+                        Use this following code to verify your email in  <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b> website
                         </p>
         
                         <a class="verify-button margin" target="_blank" rel="noopener noreferrer">${otpGenerate.toString()}</a>
@@ -653,7 +653,7 @@ module.exports.send_otp_user = async (req, res) => {
         let info = {
             from: process.env.EMAIL_ADMIN,
             to: email,
-            subject: "Thanks for sign uo for Essence of Being. Use this following code to verify your email",
+            subject: "Use this following code to verify your email in https://essenceob.com website",
             html: `
 
             <!DOCTYPE html>
@@ -874,9 +874,7 @@ module.exports.send_otp_user = async (req, res) => {
             
                         <h1 class="margin" >Hello, ${fullName} </h1>
                         <p class="p-message margin">
-
-                        Thanks for sign uo for <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b>. Use this following code to verify your email:
-
+                        Use this following code to verify your email in  <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b> website
                         </p>
             
                         <a class="verify-button margin" target="_blank" rel="noopener noreferrer">${otpGenerate.toString()}</a>
