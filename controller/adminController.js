@@ -41,7 +41,7 @@ module.exports.register_admin = async (req, res) => {
 
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
-                port: 465,
+               
                 secure: true,
                 logger: true,
                 auth: {
@@ -338,7 +338,7 @@ module.exports.register_resend_otp_admin = async (req, res) => {
             const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
             const mailTransporter = nodemailer.createTransport({ 
                 service: "gmail",
-                port: 465,
+               
                 secure: true,
                 logger: true,
                 auth: {
@@ -633,7 +633,7 @@ module.exports.send_otp_admin = async (req, res) => {
 
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
-            port: 465,
+           
             secure: true,
             logger: true,
             auth: {
