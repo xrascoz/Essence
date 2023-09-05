@@ -51,8 +51,7 @@ module.exports.register_user = async (req, res) => {
 
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
-                secure: true,
-                logger: true,
+                
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -348,8 +347,6 @@ module.exports.register_resend_otp = async (req, res) => {
             const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
-                secure: true,
-                logger: true,
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -641,9 +638,6 @@ module.exports.send_otp_user = async (req, res) => {
         const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
-            
-            secure: true,
-            logger: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -899,8 +893,6 @@ module.exports.send_otp_user = async (req, res) => {
 
         res.send({ success: "Account registered, please verify your email with Code" });
     }
-
-
 };
 
 module.exports.submit_otp_user = async (req, res) => {
@@ -977,9 +969,6 @@ module.exports.appointment_user = async (req, res) => {
         const userName = user.fullName;
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
-            
-            secure: true,
-            logger: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -1280,9 +1269,6 @@ module.exports.free_appointment_user = async (req, res) => {
 
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
-            
-            secure: true,
-            logger: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -1626,9 +1612,6 @@ module.exports.send_email_message = async (req, res) => {
       
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
-            
-            secure: true,
-            logger: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
