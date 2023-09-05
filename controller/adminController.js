@@ -41,6 +41,9 @@ module.exports.register_admin = async (req, res) => {
 
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -333,8 +336,11 @@ module.exports.register_resend_otp_admin = async (req, res) => {
         if (user) {
             const fullName = user.fullName
             const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
-            const mailTransporter = nodemailer.createTransport({ 
+            const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -618,8 +624,8 @@ module.exports.login_admin = async (req, res) => {
 module.exports.send_otp_admin = async (req, res) => {
     let { email } = req.body;
     let user = await adminModel.findOne({ email });
-    
-    
+
+
     if (user) {
         const fullName = user.fullName
 
@@ -627,6 +633,9 @@ module.exports.send_otp_admin = async (req, res) => {
 
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN

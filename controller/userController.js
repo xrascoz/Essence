@@ -51,7 +51,9 @@ module.exports.register_user = async (req, res) => {
 
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
-                
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -347,6 +349,9 @@ module.exports.register_resend_otp = async (req, res) => {
             const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
             const mailTransporter = nodemailer.createTransport({
                 service: "gmail",
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.EMAIL_ADMIN,
                     pass: process.env.PASS_EMAIL_ADMIN
@@ -632,12 +637,15 @@ module.exports.login_user = async (req, res) => {
 module.exports.send_otp_user = async (req, res) => {
     let { email } = req.body;
     let user = await userModel.findOne({ email });
-    
+
     if (user) {
         let fullName = user.fullName;
         const otpGenerate = Math.floor(Math.random() * 90000) + 10000;
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -969,6 +977,9 @@ module.exports.appointment_user = async (req, res) => {
         const userName = user.fullName;
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -1269,6 +1280,9 @@ module.exports.free_appointment_user = async (req, res) => {
 
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
@@ -1609,9 +1623,12 @@ module.exports.send_email_message = async (req, res) => {
     if (user) {
         const emailUser = user.email;
         const userName = user.fullName
-      
+
         const mailTransporter = nodemailer.createTransport({
             service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.PASS_EMAIL_ADMIN
