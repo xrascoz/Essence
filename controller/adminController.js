@@ -7,7 +7,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 app.use(express.static("uploads"))
-
+const emailjs = require('emailjs-com');
 
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -21,6 +21,12 @@ const storage = new CloudinaryStorage({
     }
 });
 const upload = multer({ storage: storage }).single("image");
+
+
+
+
+
+
 
 
 
@@ -58,17 +64,17 @@ module.exports.register_admin = async (req, res) => {
 
             <!DOCTYPE html>
             <html lang="en">
-            
+
             <!DOCTYPE html>
             <html lang="en">
-            
+
             <head>
             <meta charset="UTF-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <style>
-            
-                  
+
+
                 * {
                 padding: 0px;
                 margin: 0px;
@@ -142,7 +148,7 @@ module.exports.register_admin = async (req, res) => {
                 text-transform: capitalize;
                 cursor: pointer;
                 padding: 15px 40px;
-                  
+
                       height: fit-content;
             }
             .social-media {
@@ -158,19 +164,19 @@ module.exports.register_admin = async (req, res) => {
                 gap: 10px;
                 margin-top: 20px;
                 position: relative;
-            
+
                 margin: auto;
                 margin: 20px auto;
             }
-            
-            
-            
+
+
+
             .icon-a-card img {
                 height: 24px;
                 filter: invert(1);
                 -webkit-filter: invert(1);
             }
-            
+
             .icon-a-card {
                 width: 60px;
                 height: 60px;
@@ -193,12 +199,12 @@ module.exports.register_admin = async (req, res) => {
                 margin-top: 20px;
                 margin: 0;
             }
-            
+
             .p-message {
                 max-width: 620px;
                 margin: auto;
             }
-         
+
             a {
                 color: white !important;
                 cursor: pointer;
@@ -212,31 +218,31 @@ color: #0084ff !important;
             .p-message a {
                 color: "#000000 !important"
             }
-            
+
             .h1-text {
                 text-align: center;
                 font-size: 66px;
-            
-              
+
+
                 padding-left: var(--padding);
                 padding-right: var(--padding);
                 color:#0084ff;
-            
+
                 position: relative;
                 z-index: 1;
                 margin-bottom: 10px;
             }
-            
+
             p {
                 font-weight: 500;
             }
-            
+
             @media (max-width:700px) {
                 .h1-text {
                     font-size: 36px;
                 }
             }
-            
+
             .container::after {
                 content: "";
                 width: 90%;
@@ -250,7 +256,7 @@ color: #0084ff !important;
                 -moz-transform: translate(-50%);
                 -ms-transform: translate(-50%);
                 -o-transform: translate(-50%);
-            
+
                 z-index: 0;
                 border-radius: 345px 345px 0 0;
                 -webkit-filter: blur(177px);
@@ -267,25 +273,25 @@ color: #0084ff !important;
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
                     rel="stylesheet">
             </head>
-            
+
             <body>
                 <div class="container">
                     <div class="card">
-            
+
                         <h1 class="h1-text">Essence of Being</h1>
-            
+
                         <h1 class="margin" >Hello, ${fullName} </h1>
                         <p class="p-message margin">
                         Thanks for sign up for <b> <a target="_blank" class="a-link-website" href="https://essenceob.com">Essence of Being</a> </b>. Use this following code to verify your email:
                         </p>
-        
+
                         <a class="verify-button margin" target="_blank" rel="noopener noreferrer">${otpGenerate.toString()}</a>
                     </div>
-            
+
                 </div>
-            
+
             </body>
-            
+
             </html>`
             };
 
@@ -306,6 +312,7 @@ color: #0084ff !important;
         res.status(500).send({ error: "Failed to register the user" });
     }
 };
+
 module.exports.register_submit_admin = async (req, res) => {
     let { otp, email } = req.body;
 
