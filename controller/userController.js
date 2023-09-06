@@ -209,7 +209,7 @@ module.exports.register_user = async (req, res) => {
                 margin: auto;
             }
          
-            a {
+            .verify-button {
                 color: white !important;
                 cursor: pointer;
             }
@@ -507,7 +507,7 @@ module.exports.register_resend_otp = async (req, res) => {
                 margin: auto;
             }
          
-            a {
+            .verify-button {
                 color: white !important;
                 cursor: pointer;
             }
@@ -801,7 +801,7 @@ module.exports.send_otp_user = async (req, res) => {
                 margin: auto;
             }
          
-            a {
+            .verify-button {
                 color: white !important;
                 cursor: pointer;
             }
@@ -1136,7 +1136,7 @@ body {
     margin: auto;
 }
 
-a {
+.verify-button {
     color: white !important;
     cursor: pointer;
 }
@@ -1203,20 +1203,32 @@ p {
             <h1 class="margin" >Hello, ${userName} </h1>
 
             <p class="p-message margin">
-            We wish you a better psychological treatment with our medical staff
+            This is to confirm your appointment for a <b>${category}</b> session on :
             </p>
-
             <p class="p-message margin">
-            you have made a reservation from <b>${dateHour}</b> to <b>${dateHourEnd}</b> on the <b>${dateDay}</b> day of the <b>${category}</b> session.
+            Date: <b>${dateDay}</b> day
+            <br />
+            Time: from <b>${dateHour}</b> to <b>${dateHourEnd}</b>
+            <br />
+            Price: ${price}
             </p>
-
-             <p class="p-message margin">
-             Price: ${price}
-              </p>
-
             <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09v" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+            
+            <p class="p-message margin">
+            We look forward to our session. If you have any questions or need to reschedule, please contact us at 
+            
+            
+          <b>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=bbudair@essenceob.com" target="_blank"
+          rel="noopener noreferrer">bbudair@essenceob.com</a>
+          </b>
+            
+            Best regards,  
+            </p>
+            <p class="p-message margin">
+            <b>Bilal Budair</b>
+            </p>
         </div>
-
     </div>
 
 </body>
@@ -1419,7 +1431,7 @@ body {
     margin: auto;
 }
 
-a {
+.verify-button {
     color: white !important;
     cursor: pointer;
 }
@@ -1480,26 +1492,36 @@ p {
 </head>
 
 <body>
+
     <div class="container">
         <div class="card">
             <h1 class="h1-text">Essence of Being</h1>
             <h1 class="margin" >Hello, ${userName} </h1>
 
             <p class="p-message margin">
-            We wish you a better psychological treatment with our medical staff
+            This is to confirm your appointment for a <b>${category}</b> session on :
             </p>
-
             <p class="p-message margin">
-            you have made a reservation from <b>${dateHour}</b> to <b>${dateHourEnd}</b> on the <b>${dateDay}</b> day of the <b>${category}</b> session.
+            Date: <b>${dateDay}</b> day
+            <br />
+            Time: from <b>${dateHour}</b> to <b>${dateHourEnd}</b>
+            <br />
+            Price: Free
             </p>
-
-             <p class="p-message margin">
-             Price: Free
-              </p>
-
             <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09v" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+            
+            <p class="p-message margin">
+            We look forward to our session. If you have any questions or need to reschedule, please contact us at 
+            <b>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=bbudair@essenceob.com" target="_blank"
+            rel="noopener noreferrer">bbudair@essenceob.com</a>
+            </b>
+            Best regards,  
+            </p>
+            <p class="p-message margin">
+            <b>Bilal Budair</b>
+            </p>
         </div>
-
     </div>
 
 </body>
@@ -1723,7 +1745,7 @@ module.exports.coupon_user = async (req, res) => {
             margin: auto;
         }
         
-        a {
+        .verify-button {
             color: white !important;
             cursor: pointer;
         }
@@ -1784,27 +1806,38 @@ module.exports.coupon_user = async (req, res) => {
         </head>
         
         <body>
-            <div class="container">
-                <div class="card">
-                    <h1 class="h1-text">Essence of Being</h1>
-                    <h1 class="margin" >Hello, ${userName} </h1>
+        <div class="container">
+        <div class="card">
+            <h1 class="h1-text">Essence of Being</h1>
+            <h1 class="margin" >Hello, ${userName} </h1>
 
-                    <p class="p-message margin">
-                    We wish you a better psychological treatment with our medical staff
-                    </p>
+            <p class="p-message margin">
+            This is to confirm your appointment for a <b>${category}</b> session on :
+            </p>
+            <p class="p-message margin">
+            Date: <b>${dateDay}</b> day
+            <br />
+            Time: from <b>${dateHour}</b> to <b>${dateHourEnd}</b>
+            <br />
+            Price: Corporate Coupon
+            </p>
+            <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09v" target="_blank" rel="noopener noreferrer">Link Zoom</a>
+            
+            <p class="p-message margin">
+            We look forward to our session. If you have any questions or need to reschedule, please contact us at 
+            
+            <b>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=bbudair@essenceob.com" target="_blank"
+            rel="noopener noreferrer">bbudair@essenceob.com</a>
+            </b>
 
-                    <p class="p-message margin">
-                    you have made a reservation from <b>${dateHour}</b> to <b>${dateHourEnd}</b> on the <b>${dateDay}</b> day of the <b>${category}</b> session.
-                    </p>
-
-                     <p class="p-message margin">
-                     Price: Corporate Coupon
-                      </p>
-
-                    <a class="verify-button margin" href="https://us06web.zoom.us/j/89560347006?pwd=QlRMdXFoMHB3WlhrTUZFMys2RjN0QT09v" target="_blank" rel="noopener noreferrer">Link Zoom</a>
-                </div>
-        
-            </div>
+            Best regards,  
+            </p>
+            <p class="p-message margin">
+            <b>Bilal Budair</b>
+            </p>
+        </div>
+    </div>
         
         </body>
         
@@ -2029,7 +2062,7 @@ body {
     margin: auto;
 }
 
-a {
+.verify-button {
     color: white !important;
     cursor: pointer;
 }
