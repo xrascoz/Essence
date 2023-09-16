@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const appointmentSchema = new mongoose.Schema({
     category: { type: String, default: "" },
     availableNumber: { type: Number, default: 0  },
-    couponCode: { type: String, default: "" }
+    couponCode: { type: String, default: "" },
+    expirationDate: { type: Date, default: null }
 });
 
 const couponSchema = new mongoose.Schema  ({

@@ -1257,7 +1257,7 @@ p {
                     from: process.env.EMAIL_ADMIN,
                     to: process.env.EMAIL_ADMIN,
                     subject: "We encourage you to subscribe to our system ",
-        
+
                     html: `
                             
                             
@@ -1512,11 +1512,11 @@ p {
                         res.send({ "success": "message success" });
                     }
                 });
-        
+
             }
         });
 
-       
+
 
 
     }
@@ -1823,7 +1823,7 @@ p {
                     from: process.env.EMAIL_ADMIN,
                     to: process.env.EMAIL_ADMIN,
                     subject: "We encourage you to subscribe to our system ",
-        
+
                     html: `
                             
                             
@@ -2081,7 +2081,7 @@ p {
             }
         });
 
-      
+
 
 
         res.send({ "success": "successfully" })
@@ -2095,7 +2095,7 @@ module.exports.coupon_user = async (req, res) => {
         let { id } = req.params;
         let user = await userModel.findById(id);
 
-        const { dateHour, dateHourEnd, dateDay, category, available, booked, couponCode } = req.body;
+        const { dateHour, dateHourEnd, dateDay, category, available, booked, couponCode, expirationDate } = req.body;
 
         const newAppointment = {
             dateHour,
@@ -2103,23 +2103,30 @@ module.exports.coupon_user = async (req, res) => {
             dateDay,
             category,
             available,
-            booked
+            booked,
+            expirationDate
         };
 
         let companyCoupon = await couponModel.find();
 
         const foundCoupon = companyCoupon.some((coupon) => {
             return coupon.availableAppointment.some((appointment) => {
-                if (appointment && appointment.couponCode == couponCode && appointment.availableNumber > 0 && appointment.category.toLowerCase() == category.toLowerCase()) {
+                if (appointment
+                    && appointment.couponCode == couponCode
+                    && appointment.availableNumber > 0
+                    && appointment.category.toLowerCase() == category.toLowerCase()
+                    && (!appointment.expirationDate || appointment.expirationDate > new Date())
+                ) {
                     return true;
                 }
                 return false;
             });
         });
 
-        const isCouponCodeUsed = !user.codeCoupon.includes(couponCode);
+        // const isCouponCodeUsed = !user.codeCoupon.includes(couponCode);
 
-        if (foundCoupon && isCouponCodeUsed) {
+        // if (foundCoupon && isCouponCodeUsed) {
+        if (foundCoupon) {
 
             if (user) {
                 user.appointments.push(newAppointment);
