@@ -7,7 +7,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 app.use(express.static("uploads"))
-const emailjs = require('emailjs-com');
 
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');

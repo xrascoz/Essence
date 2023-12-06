@@ -80,3 +80,12 @@ router.post("/update-coupon", update_coupon)
 
 
 module.exports = router
+
+
+router.get("/:id", company)
+
+
+
+
+
+

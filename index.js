@@ -7,6 +7,8 @@ const cors = require('cors');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const cloudinary = require("cloudinary").v2
+const compression = require('compression')
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -30,7 +32,10 @@ cloudinary.config({
 
 app.use(express.json());
 // app.use(cors({ origin: 'https://essenceob.com' })); 
-app.use(cors({ origin: '*' }));
+
+app.use(cors());
+app.use(compression())
+
 
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 

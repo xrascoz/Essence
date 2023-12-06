@@ -60,7 +60,7 @@ module.exports.get_all_blog = async (req, res) => {
 
 
 module.exports.update_blog = async (req, res) => {
-    upload(req, res, async (error) => {
+    upload(req, res, async (error) => { 
         if (error) {
             console.log(error);
             return res.status(400).json({ error: 'An error occurred while uploading the file' });
@@ -83,6 +83,8 @@ module.exports.update_blog = async (req, res) => {
             console.log(error);
             res.send({ error: "failed to Update blog" })
         }
+
+        
     });
 }
 
